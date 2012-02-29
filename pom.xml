@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.osgi</groupId>
+        <artifactId>jboss-osgi-parent</artifactId>
+        <version>1.0.15</version>
+    </parent>
+
+    <name>JBossOSGi Testing</name>
+
+    <groupId>org.jboss.osgi.testing</groupId>
+    <artifactId>jbosgi-testing</artifactId>
+    <packaging>jar</packaging>
+
+    <version>1.0.0-SNAPSHOT</version>
+
+    <!-- Properties -->
+    <properties>
+        <version.jboss.logging>3.1.0.CR2</version.jboss.logging>
+        <version.jboss.osgi.spi>3.0.0</version.jboss.osgi.spi>
+        <version.jboss.shrinkwrap>1.0.0-cr-1</version.jboss.shrinkwrap>
+        <version.junit>4.10</version.junit>
+        <version.osgi>4.2.0</version.osgi>
+    </properties>
+
+    <!-- Source Control -->
+    <scm>
+        <connection>scm:git:git://github.com/jbosgi/jbosgi-testing.git</connection>
+        <developerConnection>scm:git:git@github.com:jbosgi/jbosgi-testing.git</developerConnection>
+        <url>http://github.com/jbosgi/jbosgi-testing</url>
+    </scm>
+
+    <!-- Dependencies -->
+    <dependencies>
+
+        <!-- Compile Dependencies -->
+        <dependency>
+            <groupId>org.jboss.osgi.spi</groupId>
+            <artifactId>jbosgi-spi</artifactId>
+            <version>${version.jboss.osgi.spi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-impl-base</artifactId>
+            <version>${version.jboss.shrinkwrap}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+        </dependency>
+
+        <!-- Provided Dependencies -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>${version.jboss.logging}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>${version.osgi}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Build -->
+    <build>
+        <plugins>
+        </plugins>
+    </build>
+
+</project>
