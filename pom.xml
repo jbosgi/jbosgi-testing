@@ -24,7 +24,7 @@
     <artifactId>jbosgi-testing</artifactId>
     <packaging>jar</packaging>
 
-    <version>1.0.3.Final</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <!-- Properties -->
     <properties>
