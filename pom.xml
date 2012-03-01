@@ -28,8 +28,8 @@
 
     <!-- Properties -->
     <properties>
-        <version.jboss.logging>3.1.0.CR2</version.jboss.logging>
-        <version.jboss.osgi.spi>3.0.0</version.jboss.osgi.spi>
+        <version.jboss.logging>3.1.0.GA</version.jboss.logging>
+        <version.jboss.osgi.spi>3.0.1.Final</version.jboss.osgi.spi>
         <version.jboss.shrinkwrap>1.0.0-cr-1</version.jboss.shrinkwrap>
         <version.junit>4.10</version.junit>
         <version.osgi>4.2.0</version.osgi>
