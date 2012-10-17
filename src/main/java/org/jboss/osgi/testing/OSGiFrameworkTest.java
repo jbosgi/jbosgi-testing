@@ -21,6 +21,26 @@
  */
 package org.jboss.osgi.testing;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.EventObject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.ConstantsHelper;
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
@@ -44,29 +64,9 @@ import org.osgi.framework.launch.Framework;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.startlevel.StartLevel;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.EventObject;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 /**
  * Parent for native framework tests.
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 10-Mar-2010
  */
@@ -218,7 +218,7 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
 
     protected void assertBundleEvent(int type, Bundle bundle) throws Exception {
         BundleEvent event = (BundleEvent) waitForEvent(bundleEvents, type);
-        
+
         log.debug("bundleEvents=" + bundleEvents);
         assertNotNull("Event not null", event);
 
