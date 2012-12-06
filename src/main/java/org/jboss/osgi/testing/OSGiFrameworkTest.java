@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.EventObject;
 import java.util.HashSet;
 import java.util.List;
@@ -61,8 +62,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.SynchronousBundleListener;
 import org.osgi.framework.launch.Framework;
-import org.osgi.service.packageadmin.PackageAdmin;
-import org.osgi.service.startlevel.StartLevel;
+import org.osgi.framework.wiring.FrameworkWiring;
 
 /**
  * Parent for native framework tests.
@@ -81,6 +81,7 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
     private final List<BundleEvent> bundleEvents = new CopyOnWriteArrayList<BundleEvent>();
     private final List<ServiceEvent> serviceEvents = new CopyOnWriteArrayList<ServiceEvent>();
 
+    @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -90,6 +91,7 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
         }
     }
 
+    @Override
     @After
     public void tearDown() throws Exception {
         // Nothing to do if the framework was not created or shutdown already
@@ -133,18 +135,6 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
     public static BundleContext getSystemContext() throws BundleException {
         Framework framework = getFramework();
         return framework.getBundleContext();
-    }
-
-    protected PackageAdmin getPackageAdmin() throws BundleException {
-        BundleContext systemContext = getSystemContext();
-        ServiceReference sref = systemContext.getServiceReference(PackageAdmin.class.getName());
-        return (PackageAdmin) systemContext.getService(sref);
-    }
-
-    protected StartLevel getStartLevel() throws BundleException {
-        BundleContext systemContext = getSystemContext();
-        ServiceReference sref = systemContext.getServiceReference(StartLevel.class.getName());
-        return (StartLevel) systemContext.getService(sref);
     }
 
     protected Bundle installBundle(Archive<?> archive) throws BundleException, IOException {
@@ -388,25 +378,23 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
         return sref;
     }
 
-    protected void refreshPackages(Bundle[] bundles) throws Exception {
-        final CountDownLatch latch = new CountDownLatch(1);
-        FrameworkListener fl = new FrameworkListener() {
+    protected boolean resolveBundles(Collection<Bundle> bundles) throws Exception {
+        FrameworkWiring frameworkWiring = getFramework().adapt(FrameworkWiring.class);
+        return frameworkWiring.resolveBundles(bundles);
+    }
 
+    protected void refreshBundles(Collection<Bundle> bundles) throws Exception {
+        final CountDownLatch latch = new CountDownLatch(1);
+        FrameworkListener listener = new FrameworkListener() {
             @Override
             public void frameworkEvent(FrameworkEvent event) {
                 if (event.getType() == FrameworkEvent.PACKAGES_REFRESHED)
                     latch.countDown();
             }
         };
-
-        BundleContext systemContext = getSystemContext();
-        try {
-            systemContext.addFrameworkListener(fl);
-            getPackageAdmin().refreshPackages(bundles);
-            assertTrue(latch.await(10, TimeUnit.SECONDS));
-        } finally {
-            systemContext.removeFrameworkListener(fl);
-        }
+        FrameworkWiring frameworkWiring = getFramework().adapt(FrameworkWiring.class);
+        frameworkWiring.refreshBundles(bundles, listener);
+        assertTrue(latch.await(10, TimeUnit.SECONDS));
     }
 
     @SuppressWarnings("rawtypes")
