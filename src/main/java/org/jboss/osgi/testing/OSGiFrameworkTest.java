@@ -384,17 +384,26 @@ public abstract class OSGiFrameworkTest extends OSGiTest implements ServiceListe
     }
 
     protected void refreshBundles(Collection<Bundle> bundles) throws Exception {
+        refreshBundles(bundles, 10, TimeUnit.SECONDS);
+    }
+
+    protected void refreshBundles(Collection<Bundle> bundles, long timeout, TimeUnit unit) throws Exception {
+        FrameworkListener listener = null;
         final CountDownLatch latch = new CountDownLatch(1);
-        FrameworkListener listener = new FrameworkListener() {
-            @Override
-            public void frameworkEvent(FrameworkEvent event) {
-                if (event.getType() == FrameworkEvent.PACKAGES_REFRESHED)
-                    latch.countDown();
-            }
-        };
+        if (timeout > 0) {
+            listener = new FrameworkListener() {
+                @Override
+                public void frameworkEvent(FrameworkEvent event) {
+                    if (event.getType() == FrameworkEvent.PACKAGES_REFRESHED)
+                        latch.countDown();
+                }
+            };
+        }
         FrameworkWiring frameworkWiring = getFramework().adapt(FrameworkWiring.class);
         frameworkWiring.refreshBundles(bundles, listener);
-        assertTrue(latch.await(10, TimeUnit.SECONDS));
+        if (timeout > 0) {
+            assertTrue(latch.await(10, unit));
+        }
     }
 
     @SuppressWarnings("rawtypes")
