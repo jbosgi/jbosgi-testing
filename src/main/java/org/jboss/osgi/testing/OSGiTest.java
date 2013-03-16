@@ -35,13 +35,15 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.osgi.framework.Bundle;
 
 /**
  * An abstract OSGi Test.
- * 
+ *
  * A convenience wrapper for the functionality provided by {@link OSGiTestHelper}.
- * 
+ *
  * @author Thomas.Diesler@jboss.org
  * @since 25-Sep-2008
  */
@@ -50,12 +52,15 @@ public abstract class OSGiTest {
     // Provide logging
     private static final Logger log = Logger.getLogger(OSGiTest.class);
 
+    @Rule
+    public TestName testName = new TestName();
+
     /**
      * Writes a a debug start messge
      */
     @Before
     public void setUp() throws Exception {
-        log.debug("### START " + getLongName());
+        log.debug("### START " + getLongName() + "." + testName.getMethodName());
     }
 
     /**
@@ -63,7 +68,7 @@ public abstract class OSGiTest {
      */
     @After
     public void tearDown() throws Exception {
-        log.debug("### END " + getLongName());
+        log.debug("### END " + getLongName() + "." + testName.getMethodName());
     }
 
     /**
