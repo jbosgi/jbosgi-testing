@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jbosgi-parent</artifactId>
-        <version>1.0.23</version>
+        <version>1.0.24</version>
     </parent>
 
     <name>JBossOSGi Testing</name>
@@ -28,7 +28,7 @@
 
     <!-- Properties -->
     <properties>
-        <version.jboss.osgi.spi>4.0.0.CR1</version.jboss.osgi.spi>
+        <version.jboss.osgi.spi>4.0.0.Final</version.jboss.osgi.spi>
         <version.jboss.shrinkwrap>1.0.0</version.jboss.shrinkwrap>
         <version.junit>4.10</version.junit>
         <version.osgi>5.0.0</version.osgi>
