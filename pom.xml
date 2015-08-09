@@ -28,7 +28,7 @@
 
     <!-- Properties -->
     <properties>
-        <version.jboss.osgi.spi>4.0.2.Final</version.jboss.osgi.spi>
+        <version.jboss.osgi.spi>4.0.3.Final</version.jboss.osgi.spi>
     </properties>
 
     <!-- Source Control -->
