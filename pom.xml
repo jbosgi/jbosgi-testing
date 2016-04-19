@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jbosgi-parent</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.2</version>
     </parent>
 
     <name>JBossOSGi Testing</name>
@@ -24,7 +24,7 @@
     <artifactId>jbosgi-testing</artifactId>
     <packaging>jar</packaging>
 
-    <version>4.0.1.Final-SNAPSHOT</version>
+    <version>4.0.1.Final</version>
 
     <!-- Properties -->
     <properties>
@@ -36,7 +36,7 @@
         <connection>scm:git:git://github.com/jbosgi/jbosgi-testing.git</connection>
         <developerConnection>scm:git:git@github.com:jbosgi/jbosgi-testing.git</developerConnection>
         <url>http://github.com/jbosgi/jbosgi-testing</url>
-        <tag>HEAD</tag>
+        <tag>4.0.1.Final</tag>
     </scm>
 
     <!-- Dependencies -->
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.jboss.osgi.spi</groupId>
             <artifactId>jbosgi-spi</artifactId>
-            <version>${version.jboss.osgi.spi}</version>
+            <version>6.0.1.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
